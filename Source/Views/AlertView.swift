@@ -66,6 +66,9 @@ class AlertView: AlertControllerView {
         } else {
             let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
             backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            if let alphaLayerBackgroundColor = self.visualStyle.alphaLayerBackgroundColor {
+                backgroundView.backgroundColor = alphaLayerBackgroundColor
+            }
 
             self.insertSubview(backgroundView, belowSubview: self.scrollView)
             backgroundView.sdc_alignEdges(.all, with: self)
