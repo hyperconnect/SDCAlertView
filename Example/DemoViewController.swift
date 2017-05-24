@@ -49,6 +49,40 @@ final class DemoViewController: UITableViewController {
         if #available(iOS 9, *) {
             addContentToAlert(alert)
         }
+
+        let vstyle = alert.visualStyle
+        vstyle.width = UIScreen.main.bounds.width - (2 * 20.0)
+        vstyle.alphaLayerBackgroundColor = UIColor.white.withAlphaComponent(0.70)
+
+        vstyle.contentPadding = UIEdgeInsets(top: 25, left: 18, bottom: 20, right: 18) // title by baseline
+//        vstyle.margins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        vstyle.verticalElementSpacing = 23
+
+        vstyle.alertTitleTextColor = UIColor(red: 79/255.0, green:  150/255.0, blue: 250/255.0, alpha: 1)
+        vstyle.alertMessageTextColor = UIColor(red: 18/255.0, green:  18/255.0, blue: 18/255.0, alpha: 1)
+
+        vstyle.normalTextColor = UIColor(red: 18/255.0, green:  18/255.0, blue: 18/255.0, alpha: 1)
+        if #available(iOS 8.2, *) {
+            vstyle.alertTitleFont = UIFont.systemFont(ofSize: 17, weight: UIFontWeightBold)
+            vstyle.alertMessageFont = UIFont.systemFont(ofSize: 15, weight: UIFontWeightRegular)
+
+            vstyle.alertPreferredFont = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+            vstyle.alertNormalFont = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        }
+
+//        if #available(iOS 9.0, *) {
+//            let contentView = alert.contentView
+//            let spinner = UIView()
+//            spinner.backgroundColor = UIColor.yellow
+//            spinner.translatesAutoresizingMaskIntoConstraints = false
+//            contentView.addSubview(spinner)
+//            spinner.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+//            spinner.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+//            spinner.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+//            spinner.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+//            spinner.heightAnchor.constraint(equalToConstant: 300).isActive = true
+//        }
+
         alert.present()
     }
 
