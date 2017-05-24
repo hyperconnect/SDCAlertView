@@ -1,5 +1,10 @@
 class AlertView: AlertControllerView {
-
+    private var isEmptyMessage: Bool {
+        if let message = message {
+            return message.length == 0
+        }
+        return true
+    }
     var actionLayout: ActionLayout = .automatic
     var textFieldsViewController: TextFieldsViewController? {
         didSet { self.textFieldsViewController?.visualStyle = self.visualStyle }
@@ -145,6 +150,7 @@ class AlertView: AlertControllerView {
         let contentPadding = self.visualStyle.contentPadding
         let insets = UIEdgeInsets(top: 0, left: contentPadding.left, bottom: 0, right: -contentPadding.right)
         self.messageLabel.sdc_alignEdges([.left, .right], with: self, insets: insets)
+        messageLabel.backgroundColor = .yellow
 
         self.pinBottomOfScrollView(to: self.messageLabel, withPriority: UILayoutPriorityDefaultLow + 1)
     }
@@ -175,7 +181,10 @@ class AlertView: AlertControllerView {
     private func createCustomContentViewConstraints() {
         if !self.elements.contains(self.contentView) { return }
 
-        let aligningView = self.textFieldsViewController?.view ?? self.messageLabel
+        let aligningView = self.textFieldsViewController?.view ??
+            (isEmptyMessage ? nil : self.messageLabel) ??
+            self.titleLabel
+        
         let widthOffset = self.visualStyle.contentPadding.left + self.visualStyle.contentPadding.right
 
         let topSpacing = self.visualStyle.verticalElementSpacing
