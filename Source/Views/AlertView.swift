@@ -40,8 +40,6 @@ class AlertView: AlertControllerView {
 
     convenience init() {
         self.init(frame: .zero)
-        self.titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
-        self.messageLabel.font = UIFont.systemFont(ofSize: 13)
     }
 
     override func prepareLayout() {
@@ -56,6 +54,7 @@ class AlertView: AlertControllerView {
         self.createUI()
         self.createContentConstraints()
         self.updateUI()
+        self.applyStyle()
     }
 
     // MARK: - Private methods
@@ -101,6 +100,18 @@ class AlertView: AlertControllerView {
         self.textFieldsViewController?.visualStyle = self.visualStyle
     }
 
+    private func applyStyle() {
+        self.titleLabel.font = self.visualStyle.alertTitleFont
+        self.messageLabel.font = self.visualStyle.alertMessageFont
+
+        if let titleColor = self.visualStyle.alertTitleTextColor {
+            self.titleLabel.textColor = titleColor
+        }
+        if let messageColor = self.visualStyle.alertMessageTextColor {
+            self.messageLabel.textColor = messageColor
+        }
+    }
+
     override var intrinsicContentSize: CGSize {
         let totalHeight = self.contentHeight + self.actionsCollectionView.displayHeight
         return CGSize(width: UIViewNoIntrinsicMetric, height: totalHeight)
@@ -119,7 +130,7 @@ class AlertView: AlertControllerView {
 
     private func createTitleLabelConstraints() {
         let contentPadding = self.visualStyle.contentPadding
-        self.addConstraint(NSLayoutConstraint(item: self.titleLabel, attribute: .firstBaseline,
+        self.addConstraint(NSLayoutConstraint(item: self.titleLabel, attribute: .top,
             relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: contentPadding.top))
         let insets = UIEdgeInsets(top: 0, left: contentPadding.left, bottom: 0, right: -contentPadding.right)
         self.titleLabel.sdc_alignEdges([.left, .right], with: self, insets: insets)
@@ -128,8 +139,8 @@ class AlertView: AlertControllerView {
     }
 
     private func createMessageLabelConstraints() {
-        self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .firstBaseline,
-            relatedBy: .equal, toItem: self.titleLabel, attribute: .lastBaseline , multiplier: 1,
+        self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .top,
+            relatedBy: .equal, toItem: self.titleLabel, attribute: .bottom , multiplier: 1,
             constant: self.visualStyle.verticalElementSpacing))
         let contentPadding = self.visualStyle.contentPadding
         let insets = UIEdgeInsets(top: 0, left: contentPadding.left, bottom: 0, right: -contentPadding.right)
@@ -151,7 +162,7 @@ class AlertView: AlertControllerView {
         let widthOffset = self.visualStyle.contentPadding.left + self.visualStyle.contentPadding.right
 
         self.addConstraint(NSLayoutConstraint(item: textFieldsView, attribute: .top, relatedBy: .equal,
-            toItem: self.messageLabel, attribute: .lastBaseline, multiplier: 1,
+            toItem: self.messageLabel, attribute: .bottom, multiplier: 1,
             constant: self.visualStyle.verticalElementSpacing))
 
         textFieldsView.sdc_pinWidth(toWidthOf: self, offset: -widthOffset)
