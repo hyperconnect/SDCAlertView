@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
   s.name             = "SDCAlertView"
-  s.version          = "10.0"
+  s.version          = "0.1.0"
   s.summary          = "The little alert that could"
-  s.homepage         = "https://github.com/sberrevoets/SDCAlertView"
+  s.homepage         = "https://github.com/hyperconnect/SDCAlertView"
   s.license          = { :type => "MIT" }
   s.authors          = { "Scott Berrevoets" => "s.berrevoets@me.com" }
-  s.source           = { :git => "https://github.com/sberrevoets/SDCAlertView.git", :tag => "v#{s.version}" }
+  s.source           = { :git => "https://github.com/hyperconnect/SDCAlertView.git", :tag => "azar-v#{s.version}" }
   s.social_media_url = "https://twitter.com/ScottBerrevoets"
 
   s.source_files     = "Source/**/*.{swift}"
